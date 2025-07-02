@@ -23,8 +23,61 @@ madreDe(marge, maggie).
 madreDe(selma, ling).
 
 % funciones pedidas
+tieneHijos(Hijo) :-
+    padreDe(Hijo, _).
 
-tieneHijos(padreDe) :-
-    
+tieneHijos(Hijo) :- 
+    madreDe(Hijo, _).
 
-tieneHijos(madreDe) :- 
+hermanos(Hijo1, Hijo2) :- 
+    mismoPadre(Hijo1, Hijo2),
+    mismaMadre(Hijo1, Hijo2).
+
+mismaMadre(Hijo1, Hijo2) :-
+    madreDe(Madre, Hijo1),
+    madreDe(Madre, Hijo2).
+
+mismoPadre(Hijo1, Hijo2) :- 
+    padreDe(Padre, Hijo1),
+    padreDe(Padre, Hijo2).
+
+medioHermano(Hijo1, Hijo2) :-
+    mismoPadre(Hijo1, Hijo2),
+    not(mismaMadre(Hijo1, Hijo2)).
+
+medioHermano(Hijo1, Hijo2) :- 
+    mismaMadre(Hijo1, Hijo2),
+    not(mismoPadre(Hijo1, Hijo2)).
+
+tipoDe(Tio, Sobrino) :- 
+    padreDe(Padre, Sobrino),
+    hermanos(Padre, Tio).
+
+tipoDe(Tio, Sobrino) :-
+    madreDe(Madre, Sobrino),
+    hermanos(Madre, Tio).
+
+abueloMultiple(Abuelo) :-
+    esAbuelo(Abuelo, Nieto1),
+    esAbuelo(Abuelo, Nieto2),
+    Nieto1 \= Nieto2.
+
+abueloMultiple(Abuela) :-
+    esAbuela(Abuela, Nieto1),
+    esAbuela(Abuela, Nieto2),
+    Nieto1 \= Nieto2.
+
+esAbuelo(Abuelo, UnNieto) :-
+    padreDe(Abuelo, Papa),
+    padreDe(Papa, UnNieto).
+
+esAbuela(Abuelo, UnNieto) :-
+    madreDe(Abuelo, Papa),
+    madreDe(Papa, UnNieto).
+
+descendiente(Personaje, Descendiente) :-
+    padreDe(Personaje, Descendiente).
+
+descendiente(Personaje, Descendiente) :-
+    padreDe(Personaje, PersonajeMedio),
+    descendiente(PersonajeMedio, Descendiente).
