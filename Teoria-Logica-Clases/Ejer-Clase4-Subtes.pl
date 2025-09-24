@@ -19,7 +19,7 @@ estaEn(Linea, Estacion) :-
     linea(Linea, Estaciones),
     member(Estacion, Estaciones).
     
-%2. distancia/3: dadas dos estaciones de la misma línea, cuántas estaciones hay entre ellas: por ejemplo, entre Perú y Primera Junta hay 5 estaciones.
+%2. distancia/3: dadas dos estaciones de la misma línea, cuántas estaciones hay entre ellas: por ejemplo, entre Perú y Primera Junta hay 5 estaciones. 
 distancia(Estacion1, Estacion2, Distancia) :-
     linea(_, Estaciones),
     nth0(Inicio, Estaciones, Estacion1),
